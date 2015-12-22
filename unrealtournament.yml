@@ -1,9 +1,9 @@
 ---
-- hosts: privat2
+- hosts: <your hosts>
   remote_user: root
   sudo: no
   vars:
-    download_url: https://s3.amazonaws.com/unrealtournament/UnrealTournament-Server-XAN-2771652-Linux.zip
+    download_url: <current url>
     download_folder: /opt/ut/
     ut_archive: "{{download_folder}}utserver.zip"
 
