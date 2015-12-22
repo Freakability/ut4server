@@ -1,0 +1,46 @@
+---
+- hosts: privat2
+  remote_user: root
+  sudo: no
+  vars:
+    download_url: https://s3.amazonaws.com/unrealtournament/UnrealTournament-Server-XAN-2771652-Linux.zip
+    download_folder: /opt/ut/
+    ut_archive: "{{download_folder}}utserver.zip"
+
+  tasks:
+  - name: Create User
+    user: name=ut shell=/bin/sh home=/opt/ut
+
+  - name: Download UT
+    command: "wget -q -O {{ut_archive}} --no-check-certificate --no-cookies {{download_url}}"
+    sudo: yes
+    sudo_user: ut
+
+  - name: Unpack archive
+    command: "unzip -d {{download_folder}} {{ut_archive}}"
+    sudo: yes
+    sudo_user: ut
+
+  - name: Clean up
+    file: state=absent path={{ut_archive}}
+
+  - name: Create conf-folder
+    file: path={{download_folder}}conf state=directory
+    sudo: yes
+    sudo_user: ut
+
+  - name: Create symlink
+    file: src={{download_folder}}conf dest={{download_folder}}LinuxServer/UnrealTournament/Saved/Config/LinuxServer state=link
+    sudo_user: ut
+
+  - name: make UT executable
+    command: "chmod 744 {{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Test"
+    sudo: yes
+    sudo_user: ut
+
+  - name: initial start
+    command: "{{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Test UnrealTournament UT-Entry?Game=Lobby -log"
+    sudo: yes
+    sudo_user: ut
+
+
