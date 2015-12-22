@@ -9,7 +9,7 @@
 
   tasks:
   - name: Create User
-    user: name=ut shell=/bin/sh home=/opt/ut
+    user: name=ut shell=/bin/bash home=/opt/ut
 
   - name: Download UT
     command: "wget -q -O {{ut_archive}} --no-check-certificate --no-cookies {{download_url}}"
