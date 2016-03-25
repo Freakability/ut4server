@@ -1,4 +1,5 @@
 FROM debian:latest
+MAINTAINER freakability@freakability.de
 
 RUN apt-get update
 
