@@ -34,12 +34,12 @@
     sudo_user: ut
 
   - name: make UT executable
-    command: "chmod 744 {{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Test"
+    command: "chmod 744 {{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Shipping"
     sudo: yes
     sudo_user: ut
 
   - name: initial start
-    command: "{{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Test UnrealTournament UT-Entry?Game=Lobby -log"
+    command: "{{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Shipping UnrealTournament UT-Entry?Game=Lobby -log"
     sudo: yes
     sudo_user: ut
 
