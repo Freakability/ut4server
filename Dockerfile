@@ -16,6 +16,7 @@ WORKDIR /home/ut
 USER ut
 
 VOLUME ["/home/ut/LinuxServer/UnrealTournament/Saved/Config/LinuxServer"]
+VOLUME ["/home/ut/LinuxServer/UnrealTournament/Saved/Logs"]
 
 EXPOSE 7777/udp 15000/udp 7787/udp
 
