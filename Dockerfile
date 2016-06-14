@@ -18,7 +18,7 @@ USER ut
 VOLUME ["/home/ut/LinuxServer/UnrealTournament/Saved/Config/LinuxServer"]
 VOLUME ["/home/ut/LinuxServer/UnrealTournament/Saved/Logs"]
 
-EXPOSE 7777/udp 15000/udp 7787/udp
+EXPOSE 7777/udp 14000/udp 7787/udp
 
 # standalone server
 #CMD ["/home/ut/LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Shipping","UnrealTournament","DM-DeckTest?Game=DM?MaxPlayers=20?MaxSpectators=15?maxreadywait=45?mutator=InstaGib","-log"]
