@@ -3,14 +3,21 @@
   remote_user: root
   sudo: no
   vars:
-    download_url: <current url>
-    download_folder: /opt/ut/
+    download_url: https://s3.amazonaws.com/unrealtournament/UnrealTournament-Server-XAN-3164292-Linux.zip
+    download_folder: /home/ut/
     ut_archive: "{{download_folder}}utserver.zip"
 
   tasks:
-  - name: Create User
-    user: name=ut shell=/bin/bash home=/opt/ut
+  - name: Create User if it doesn't exist yet
+    user: name=ut shell=/bin/bash home=/home/ut
 
+  - stat: path=/home/ut/LinuxServer
+    register: p
+	
+  - name: Create Backup if there is an existing installation
+    synchronize: mode=pull src={{download_folder}}/LinuxServer/ dest={{download_folder}}/LinuxServer_bak/ recursive=yes owner=yes
+	when: p.stat.isdir is defined and p.stat.isdir
+	
   - name: Download UT
     command: "wget -q -O {{ut_archive}} --no-check-certificate --no-cookies {{download_url}}"
     sudo: yes
@@ -34,12 +41,7 @@
     sudo_user: ut
 
   - name: make UT executable
-    command: "chmod 744 {{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Shipping"
-    sudo: yes
-    sudo_user: ut
-
-  - name: initial start
-    command: "{{download_folder}}LinuxServer/Engine/Binaries/Linux/UE4Server-Linux-Shipping UnrealTournament UT-Entry?Game=Lobby -log"
+    command: "chmod a+x {{download_folder}}LinuxServer/Engine/Binaries/Linux/* {{download_folder}}LinuxServer/UnrealTournament/Binaries/Linux/*"
     sudo: yes
     sudo_user: ut
 
