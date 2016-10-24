@@ -16,7 +16,7 @@
 	
   - name: Create Backup if there is an existing installation
     synchronize: mode=pull src={{download_folder}}/LinuxServer/ dest={{download_folder}}/LinuxServer_bak/ recursive=yes owner=yes
-	when: p.stat.isdir is defined and p.stat.isdir
+    when: p.stat.isdir is defined and p.stat.isdir
 	
   - name: Download UT
     command: "wget -q -O {{ut_archive}} --no-check-certificate --no-cookies {{download_url}}"
